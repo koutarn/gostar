@@ -36,6 +36,31 @@ func execInit(projectName string){
 	}
 }
 
+func execCobla() {
+	var err error
+	var out []byte
+
+	out,err = exec.Command("go install github.com/spf13/cobra-cli@latest","").Output()
+	fmt.Println(string(out))
+	if err != nil {
+		fmt.Println("Error:",err)
+	}
+
+	// cobla-initを実行
+	out,err = exec.Command("coble-cli init","").Output()
+	fmt.Println(string(out))
+	if err != nil {
+		fmt.Println("Error:",err)
+	}
+
+	// cobla add versionを実行
+	out,err = exec.Command("cobla-cli add version","").Output()
+	fmt.Println(string(out))
+	if err != nil {
+		fmt.Println("Error:",err)
+	}
+}
+
 func Create(){
 
 	dir ,err := os.Getwd()
@@ -48,26 +73,14 @@ func Create(){
 	projectName := filepath.Base(dir)
 
 	execInit(projectName)
-
-	
-
+	execCobla()
 	// cobla-cliをインストール
-	// exec.Command("").Run()
+	// exec.Command("").Run("go install github.com/spf13/cobra-cli@latest")
 	// if err != nil {
 	// 	fmt.Println("Error:",err)
 	// }
 
-	// cobla-initを実行
-	exec.Command("coble-cli init").Run()
-	if err != nil {
-		fmt.Println("Error:",err)
-	}
 
-	// cobla add versionを実行
-	exec.Command("cobla-cli add version").Run()
-	if err != nil {
-		fmt.Println("Error:",err)
-	}
 
     // 	Makefileをコピー
     // 	testフォルダを作成
