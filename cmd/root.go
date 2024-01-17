@@ -40,6 +40,9 @@ func execCobla() {
 	var err error
 	var out []byte
 
+	path, err := exec.LookPath("go")
+	fmt.Println(path)
+
 	out,err = exec.Command("go install github.com/spf13/cobra-cli@latest","").Output()
 	fmt.Println(string(out))
 	if err != nil {
@@ -47,6 +50,8 @@ func execCobla() {
 	}
 
 	// cobla-initを実行
+	path, err = exec.LookPath("cobla-cli")
+	fmt.Println(path)
 	out,err = exec.Command("coble-cli init","").Output()
 	fmt.Println(string(out))
 	if err != nil {
